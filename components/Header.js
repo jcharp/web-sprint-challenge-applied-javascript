@@ -11,6 +11,7 @@
 // Use your function to create a header
 // and append it to the DOM inside the div.header-container
 
+// creating each element and adding classes and content as i go
 function Header() {
     const header = document.createElement('div');
     header.classList.add('header');
@@ -26,10 +27,12 @@ function Header() {
     temp.classList.add('temp');
     temp.innerText = "98 \u00B0";
 
+    //setting the structure of header div
     header.appendChild(span);
     header.appendChild(hOne);
     header.appendChild(temp);
 
+    //creating selector and appending function
     const headerContainer = document.querySelector('.header-container');
     headerContainer.appendChild(header);
 
