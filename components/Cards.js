@@ -22,20 +22,20 @@
 // Use your function to create a card for each of the articles, and append each card to the DOM.
 
 //axios call to get data structure
-axios.get('https://lambda-times-api.herokuapp.com/articles')
-.then(res => {
-    console.log(res)
-})
-.catch(err => {
-    console.log(err)
-})
+// axios.get('https://lambda-times-api.herokuapp.com/articles')
+// .then(res => {
+//     console.log(res)
+// })
+// .catch(err => {
+//     console.log(err)
+// })
 
 //creating each element and addin clases and content as i go
 function createCard(obj){
     const card = document.createElement('div');
     card.classList.add('card');
 
-    const headline = documetn.createElement('div');
+    const headline = document.createElement('div');
     headline.classList.add('headline');
     headline.innerText = obj.headline;
 
@@ -58,7 +58,41 @@ function createCard(obj){
     imgContainer.appendChild(img);
     card.appendChild(span);
 
+    //event listener to console log the headline
+    card.addEventListener('click', () => {
+        console.log("this is the headline ", headline.textContent);
+    })
+    
+
     return card;
 
 }
 
+const cardsContainer = document.querySelector('.cards-container');
+
+
+//redoing axios call here
+
+axios.get('https://lambda-times-api.herokuapp.com/articles')
+.then(res => {
+    //console.log(res)
+
+    //the response was an object with objects so i had to use Object.entries to return an array of what is in the object
+
+    const articles = res.data.articles;
+    const entries = Object.entries(articles);
+
+    for(const key of entries) {
+        const data = key[1]
+        data.forEach(item => {
+            cardsContainer.appendChild(createCard(item));
+           
+
+        })
+    }
+
+
+})
+.catch(err => {
+    console.log(err)
+})
